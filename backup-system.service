@@ -1,0 +1,35 @@
+[Unit]
+Description=Serviço de Backup Automatizado
+# Garante que a rede esteja disponível antes de iniciar
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+# O serviço é um processo simples que fica em execução
+Type=simple
+
+# Usuário e grupo para executar o serviço (crie-os se não existirem)
+# User=backupuser
+# Group=backupgroup
+
+# Diretório de trabalho da aplicação
+WorkingDirectory=/path/to/your/project
+
+# Comando para iniciar a aplicação em modo agendador/daemon
+ExecStart=/usr/bin/python3 /path/to/your/project/main.py --action schedule --daemon
+
+# Reinicia o serviço em caso de falha
+Restart=on-failure
+RestartSec=10
+
+# Tempo para aguardar o encerramento do processo antes de forçar
+TimeoutStopSec=30
+
+# Configuração de logging para o systemd journal
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=backup-system
+
+[Install]
+# Habilita o serviço para iniciar no boot do sistema
+WantedBy=multi-user.target

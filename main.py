@@ -2,11 +2,17 @@
 import sys
 import argparse
 import logging
+import time
+from config import BackupConfig
+from backup_manager import BackupManager
+from cloud_sync import CloudSyncManager
+from scheduler import BackupScheduler
 
 
 def main():
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     parser = argparse.ArgumentParser(description='Sistema de Backup')
-    parser.add_argument('--config', default='backup_config.json',
+    parser.add_argument('--config', default='config_avancada.json',
                         help='Arquivo de configuração')
     parser.add_argument('--action', choices=['full', 'incremental', 'schedule', 'cleanup'],
                         default='schedule', help='Ação a executar')
@@ -16,7 +22,11 @@ def main():
     args = parser.parse_args()
 
     # Carregar configuração
-    config = BackupConfig(args.config)
+    try:
+        config = BackupConfig(args.config)
+    except FileNotFoundError:
+        logging.error(f"Arquivo de configuração '{args.config}' não encontrado.")
+        return 1
 
     # Inicializar componentes
     backup_manager = BackupManager(config)
@@ -63,10 +73,12 @@ def main():
                     while True:
                         time.sleep(1)
                 except KeyboardInterrupt:
+                    print("\nParando agendador...")
                     scheduler.stop()
+                    print("Agendador parado.")
 
     except Exception as e:
-        logging.error(f"Erro durante execução: {e}")
+        logging.error(f"Erro durante execução: {e}", exc_info=True)
         return 1
 
     return 0
