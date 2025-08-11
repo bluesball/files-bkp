@@ -1,0 +1,118 @@
+# config_avancada.json
+{
+    "source_directory": "/home/usuario/documentos",
+    "local_backup_directory": "/media/backup_disk/backups",
+    "cloud_provider": "google_drive",
+    "cloud_directory": "/Backups/MeuPC",
+
+    "backup_schedule": {
+        "full_backup_interval_days": 7,
+        "incremental_interval_hours": 6,
+        "cloud_sync_interval_hours": 1,
+        "cleanup_interval_days": 1
+    },
+
+    "retention_policy": {
+        "keep_full_backups": 4,
+        "keep_incremental_days": 30,
+        "keep_cloud_backups": 8
+    },
+
+    "compression": {
+        "enabled": true,
+        "level": 6,
+        "method": "zip"
+    },
+
+    "encryption": {
+        "enabled": false,
+        "password": "sua_senha_segura",
+        "algorithm": "AES256"
+    },
+
+    "monitoring": {
+        "enabled": true,
+        "check_interval_minutes": 15,
+        "system_thresholds": {
+            "cpu_max": 90,
+            "memory_max": 85,
+            "disk_min_gb": 10
+        }
+    },
+
+    "notifications": {
+        "email": {
+            "enabled": false,
+            "smtp_server": "smtp.gmail.com",
+            "smtp_port": 587,
+            "username": "seu_email@gmail.com",
+            "password": "sua_senha_app",
+            "from": "backup@seudominio.com",
+            "to": "admin@seudominio.com",
+            "notify_on_success": false,
+            "notify_on_error": true
+        },
+        "webhook": {
+            "enabled": false,
+            "url": "https://hooks.slack.com/services/SEU/WEBHOOK/URL",
+            "notify_on_success": true,
+            "notify_on_error": true
+        }
+    },
+
+    "exclude_patterns": [
+        "*.tmp", "*.log", "*.cache",
+        "__pycache__", ".git", ".svn",
+        "node_modules", "venv", ".env",
+        "*.iso", "*.img", "*.vmdk",
+        "Thumbs.db", ".DS_Store",
+        "System Volume Information",
+        "$RECYCLE.BIN"
+    ],
+
+    "include_patterns": [
+        "*.doc", "*.docx", "*.pdf",
+        "*.xls", "*.xlsx", "*.ppt", "*.pptx",
+        "*.jpg", "*.png", "*.gif", "*.mp4",
+        "*.txt", "*.rtf", "*.odt",
+        "*.zip", "*.rar", "*.7z"
+    ],
+
+    "performance": {
+        "max_concurrent_uploads": 3,
+        "chunk_size_mb": 10,
+        "timeout_seconds": 300,
+        "retry_attempts": 3,
+        "throttle_cpu_percent": 80
+    },
+
+    "cloud_credentials": {
+        "google_drive": {
+            "credentials_file": "credentials.json",
+            "token_file": "token.json",
+            "folder_id": null
+        },
+        "onedrive": {
+            "client_id": "",
+            "client_secret": "",
+            "tenant_id": "",
+            "redirect_uri": "http://localhost:8080/callback"
+        }
+    },
+
+    "web_interface": {
+        "enabled": true,
+        "port": 8080,
+        "host": "localhost",
+        "authentication": false,
+        "username": "admin",
+        "password": "backup123"
+    },
+
+    "logging": {
+        "level": "INFO",
+        "max_file_size_mb": 10,
+        "backup_count": 5,
+        "console_output": true
+    }
+}

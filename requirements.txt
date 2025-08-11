@@ -1,0 +1,52 @@
+# requirements.txt
+google-api-python-client>=2.0.0
+google-auth-httplib2>=0.1.0
+google-auth-oauthlib>=0.8.0
+schedule>=1.2.0
+requests>=2.25.0
+pycryptodome>=3.15.0  # Para criptografia opcional
+watchdog>=2.1.0       # Para monitoramento de arquivos em tempo real
+
+
+
+# requirements_extended.txt
+# Dependências principais
+google-api-python-client>=2.0.0
+google-auth-httplib2>=0.1.0
+google-auth-oauthlib>=0.8.0
+schedule>=1.2.0
+requests>=2.25.0
+watchdog>=2.1.0
+
+# Criptografia
+cryptography>=3.4.8
+pycryptodome>=3.15.0
+
+# Interface CLI
+click>=8.0.0
+rich>=10.0.0  # Para saída colorida e formatada
+
+# Monitoramento e sistema
+psutil>=5.8.0
+py-cpuinfo>=8.0.0
+
+# Compressão avançada
+py7zr>=0.16.0  # Para arquivos 7z
+rarfile>=4.0   # Para arquivos RAR
+
+# Banco de dados (opcional)
+sqlite3  # Incluído no Python
+sqlalchemy>=1.4.0  # Para ORM se necessário
+
+# Web interface
+flask>=2.0.0
+flask-cors>=3.0.10
+
+# Testes
+pytest>=6.0.0
+pytest-cov>=2.12.0
+
+# Desenvolvimento
+black>=21.0.0  # Formatador de código
+flake8>=3.9.0  # Linter
+
